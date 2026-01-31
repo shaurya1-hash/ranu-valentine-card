@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ranu ❤️ Shaurya</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to bottom, #ff9a9e, #fecfef);
+    text-align: center;
+    overflow-x: hidden;
+  }
+
+  .card {
+    background: white;
+    width: 90%;
+    max-width: 360px;
+    margin: 80px auto;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    position: relative;
+    z-index: 2;
+  }
+
+  h1 {
+    color: #ff4d6d;
+  }
+
+  p {
+    color: #333;
+    font-size: 16px;
+  }
+
+  button {
+    background: #ff4d6d;
+    color: white;
+    border: none;
+    padding: 14px;
+    width: 100%;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 15px;
+    margin-top: 15px;
+    display: none;
+  }
+
+  .text {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #ff4d6d;
+    line-height: 1.6;
+    min-height: 120px;
+    display: none;
+  }
+
+  .final-love {
+    font-size: 20px;
+    font-weight: bold;
+    color: #e6005c;
+    margin-top: 18px;
+  }
+
+  /* Falling hearts */
+  .heart {
+    position: fixed;
+    top: -10px;
+    font-size: 18px;
+    animation: fall linear infinite;
+    z-index: 1;
+  }
+
+  @keyframes fall {
+    to { transform: translateY(100vh); opacity: 0; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- Audio -->
+<audio id="music" loop>
+  <source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="typingSound">
+  <source src="typing.mp3" type="audio/mpeg">
+</audio>
+
+<div class="card">
+  <h1>Hey Ranu 💖</h1>
+  <p>I made something special for you 🥹</p>
+
+  <!-- STEP 1 BUTTON -->
+  <button id="openBtn" onclick="showPhoto()">Open 💌</button>
+
+  <!-- PHOTO (hidden initially) -->
+  <img id="photo" src="photo.jpg" alt="Our Photo">
+
+  <!-- STEP 2 BUTTON -->
+  <button id="readBtn" onclick="startTyping()" style="display:none;">
+    Read My Heart 💕
+  </button>
+
+  <!-- TYPING TEXT -->
+  <div class="text" id="text"></div>
+</div>
+
+<script>
+  /* STEP 1 → show photo + play song */
+  function showPhoto() {
+    document.getElementById("music").play();
+    document.getElementById("photo").style.display = "block";
+    document.getElementById("readBtn").style.display = "block";
+    document.getElementById("openBtn").style.display = "none";
+  }
+
+  /* STEP 2 → type paragraph word by word with sound */
+  const message = `From the moment you came into my life everything felt warmer and brighter 🌸
+  Your smile gives me peace your presence feels like home and loving you feels effortless ✨
+  No matter what comes my way I promise to choose you every single day 💞`;
+
+  const words = message.split(" ");
+  let i = 0;
+
+  function startTyping() {
+    document.getElementById("readBtn").style.display = "none";
+    document.getElementById("text").style.display = "block";
+
+    const typingSound = document.getElementById("typingSound");
+    const textDiv = document.getElementById("text");
+
+    const interval = setInterval(() => {
+      typingSound.currentTime = 0;
+      typingSound.play();
+
+      textDiv.innerHTML += words[i] + " ";
+      i++;
+
+      if (i === words.length) {
+        clearInterval(interval);
+        typingSound.pause();
+        textDiv.innerHTML += `
+          <div class="final-love">
+            I love you Ranu 💕🥰❤️✨<br>
+            — Shaurya
+          </div>`;
+      }
+    }, 300);
+  }
+
+  /* Falling hearts */
+  setInterval(() => {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.animationDuration = (3 + Math.random() * 3) + "s";
+    document.body.appendChild(heart);
+    setTimeout(() => heart.remove(), 6000);
+  }, 400);
+</script>
+
+</body>
+</html>
